@@ -11,7 +11,6 @@ int *t3top;
 int lastto;
 
 int* tnumToTwrtop(int n);
-int* tnumToTwr(int n);
 void moveDisk(int from, int to);
 int playLegalMoves(int i, int j, int missingMoves, int numMovesPlayed);
 
