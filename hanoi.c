@@ -62,28 +62,28 @@ void hanoimoves(int n)
     }
 
     int numMovesPlayed = 1;
-    int missingMoves = pow(2,n)-1;
+    int total = pow(2,n)-1;
 
     if(n % 2 == 0)
     {
-        while(numMovesPlayed < missingMoves)
+        while(numMovesPlayed < total)
         {
-            numMovesPlayed = playLegalMoves(1, 3, missingMoves, numMovesPlayed);
+            numMovesPlayed = playLegalMoves(1, 3, total, numMovesPlayed);
 
-            numMovesPlayed = playLegalMoves(1, 2, missingMoves, numMovesPlayed);
+            numMovesPlayed = playLegalMoves(1, 2, total, numMovesPlayed);
 
-            numMovesPlayed = playLegalMoves(2, 3, missingMoves, numMovesPlayed);
+            numMovesPlayed = playLegalMoves(2, 3, total, numMovesPlayed);
         }
     }
     else
     {
-        while(numMovesPlayed < missingMoves)
+        while(numMovesPlayed < total)
         {
-            numMovesPlayed = playLegalMoves(1, 2, missingMoves, numMovesPlayed);
+            numMovesPlayed = playLegalMoves(1, 2, total, numMovesPlayed);
 
-            numMovesPlayed = playLegalMoves(1, 3, missingMoves, numMovesPlayed);
+            numMovesPlayed = playLegalMoves(1, 3, total, numMovesPlayed);
 
-            numMovesPlayed = playLegalMoves(2, 3, missingMoves, numMovesPlayed);
+            numMovesPlayed = playLegalMoves(2, 3, total, numMovesPlayed);
         }
     }
 
@@ -128,7 +128,8 @@ int playLegalMoves(int i, int j, int missingMoves, int numMovesPlayed)
     {
         oneDirLegal = 0;
 
-        if(lastto != i && (*tnumToTwrtop(i) < *tnumToTwrtop(j) || *tnumToTwrtop(j) == 0) && *tnumToTwrtop(i) != 0)
+        if(lastto != i && (*tnumToTwrtop(i) < *tnumToTwrtop(j)
+           || *tnumToTwrtop(j) == 0) && *tnumToTwrtop(i) != 0)
         {
             moveDisk(i, j);
             printf("(%d,%d)", i, j);
@@ -136,7 +137,8 @@ int playLegalMoves(int i, int j, int missingMoves, int numMovesPlayed)
             oneDirLegal = 1;
             numMovesPlayed++;
         }
-        else if(lastto != j && (*tnumToTwrtop(j) < *tnumToTwrtop(i) || *tnumToTwrtop(i) == 0) && *tnumToTwrtop(j) != 0)
+        else if(lastto != j && (*tnumToTwrtop(j) < *tnumToTwrtop(i)
+                || *tnumToTwrtop(i) == 0) && *tnumToTwrtop(j) != 0)
         {
             moveDisk(j, i);
             printf("(%d,%d)", j, i);
