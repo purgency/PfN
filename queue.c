@@ -7,7 +7,6 @@ Camilo Andres Daza Barrios
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <assert.h>
 
 #include "queue.h"
 
@@ -26,7 +25,11 @@ Queue *queue_new(unsigned long qsize)
 {
     Queue *q;
 
-    assert(qsize > 0);
+    if(qsize <= 0)
+    {
+        fprintf(stderr, "Error: a queue must have a size of 1 or higher");
+        exit(EXIT_FAILURE);
+    }
 
     q = (Queue*) malloc(sizeof (Queue));
 
@@ -53,7 +56,11 @@ bool queue_is_empty(const Queue *q)
 
 void queue_double_size(Queue *q)
 {
-    assert(q->no_of_elements == q->queuesize);
+    if(q->no_of_elements != q->queuesize)
+    {
+        fprintf(stderr, "Error: this can only be done if the queue is full");
+        exit(EXIT_FAILURE);
+    }
 
     q->queuespace = realloc(q->queuespace,
                             sizeof(Queueelement) * q->queuesize * 2);
@@ -84,7 +91,11 @@ Queueelement queue_dequeue(Queue *q)
 {
     Queueelement out;
 
-    assert(q->no_of_elements > 0);
+    if(q->no_of_elements <= 0)
+    {
+        fprintf(stderr, "Error: empty queues shall not return stuff");
+        exit(EXIT_FAILURE);
+    }
 
     out = q->queuespace[q->dequeueindex];
 
