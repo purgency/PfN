@@ -2,6 +2,11 @@
 Gruppe:
 Philipp-Marvin Quach
 Camilo Andres Daza Barrios
+
+Anmerkung: hier habe ich Probleme make test aufzurufen,
+da ich grade erst Cygwin auf meinem Windows installiert habe,
+um die make Befehle auszuführen aber valgrind noch nicht eingreichtet ist
+(valgrind: Kommand nicht gefunden). Ich hoffe das klappt alles so.
 */
 
 #include <stdio.h>
@@ -19,13 +24,18 @@ int lastto;
 int* tnumToTwrtop(int n);
 void moveDisk(int from, int to);
 int playLegalMoves(int i, int j, int missingMoves, int numMovesPlayed);
+void hanoimoves(int n);
 
-int main()
+int main(int argc, char **argv)
 {
     int numDisks;
 
-    printf("Enter a number of disks (warning: exponential growth):\n");
-    scanf("%d", &numDisks);
+    if(argc != 2)
+    {
+        fprintf(stderr, "Error: Please give a parameter for disknumber: hanoi.x [number]");
+        exit(EXIT_FAILURE);
+    }
+    sscanf(argv[1],"%d", &numDisks);
 
     if(numDisks < 1)
     {
