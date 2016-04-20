@@ -1,3 +1,9 @@
+/*
+Gruppe:
+Philipp-Marvin Quach
+Camilo Andres Daza Barrios
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -18,9 +24,11 @@ struct Queue {
 
 Queue *queue_new(unsigned long qsize)
 {
+    Queue *q;
+
     assert(qsize > 0);
 
-    Queue *q = (Queue*) malloc(sizeof (Queue));
+    q = (Queue*) malloc(sizeof (Queue));
 
     q->queuespace = (Queueelement*) malloc(qsize * sizeof(Queueelement));
     q->enqueueindex = 0;
@@ -74,9 +82,11 @@ void queue_enqueue(Queue *q, Queueelement elem)
 
 Queueelement queue_dequeue(Queue *q)
 {
+    Queueelement out;
+
     assert(q->no_of_elements > 0);
 
-    Queueelement out = q->queuespace[q->dequeueindex];
+    out = q->queuespace[q->dequeueindex];
 
     q->dequeueindex = q->dequeueindex > 0? q->dequeueindex-1 : q->queuesize-1;
 
@@ -87,13 +97,14 @@ Queueelement queue_dequeue(Queue *q)
 
 void queue_print(const Queue *q)
 {
+    unsigned long i;
+    unsigned long j = 1;
+    unsigned long index;
+
     if(q->no_of_elements > 0)
     {
-        unsigned long i;
-        unsigned long j = 1;
         for(i =  0; i < q->no_of_elements; i++)
         {
-            unsigned long index;
             if(q->dequeueindex-i >= 0)
             {
                 index = q->dequeueindex-i;
