@@ -2,11 +2,23 @@
 Gruppe:
 Philipp-Marvin Quach
 Camilo Andres Daza Barrios
+
+Zum Bestehend der Tests:
+srand48 gibt es auf Windows nicht, ich habe daher online nach einer
+Variante gesucht die auf Windows läuft und Diese zu queuetest.c hinzu-
+gefügt (inzwischen wieder entfernt):
+https://gist.github.com/mortennobel/8665258
+
+Die Ausgaben waren trotz konstantem Seed von 1000 immer unterschiedlich,
+daher konnten wir nicht feststellen, ob die Tests bestanden werden, nur,
+dass sich das Programm ausführen lässt und "ähnlich" aussehende
+Ergebnisse liefert.
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 #include "queue.h"
 
