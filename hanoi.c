@@ -1,3 +1,9 @@
+/*
+Gruppe:
+Philipp-Marvin Quach
+Camilo Andres Daza Barrios
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -36,6 +42,9 @@ void hanoimoves(int n)
     t2top = &t2[0];
     t3top = &t3[0];
 
+    int numMovesPlayed = 1;
+    int total = pow(2,n)-1;
+
     int i;
 
     printf("\ninitial configuration:\ntower1\ttower2\ttower3\n");
@@ -60,9 +69,6 @@ void hanoimoves(int n)
         moveDisk(1, 2);
         lastto = 2;
     }
-
-    int numMovesPlayed = 1;
-    int total = pow(2,n)-1;
 
     if(n % 2 == 0)
     {
