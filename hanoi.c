@@ -27,6 +27,12 @@ int main()
     printf("Enter a number of disks (warning: exponential growth):\n");
     scanf("%d", &numDisks);
 
+    if(numDisks < 1)
+    {
+        fprintf(stderr, "Error: number of disks must be 1 or bigger");
+        exit(EXIT_FAILURE);
+    }
+
     hanoimoves(numDisks);
 
     return 0;
