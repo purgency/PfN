@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-long* revert_partialsums(long *ps, unsigned long n)
+void revert_partialsums(long *ps, unsigned long n)
 {
     int i;
 
@@ -9,8 +9,6 @@ long* revert_partialsums(long *ps, unsigned long n)
     {
         ps[n-i] = ps[n-i] - ps[n-i-1];
     }
-
-    return ps;
 }
 
 int main(int argc, char **argv)
