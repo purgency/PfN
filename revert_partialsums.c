@@ -49,7 +49,7 @@ int main(int argc, char **argv)
         ps[i] = arg;
     }
 
-    ps = revert_partialsums(ps, argc-1);
+    revert_partialsums(ps, argc-1);
 
     for(i = 0; i < argc-1; i++)
     {
