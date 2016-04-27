@@ -2,9 +2,6 @@
 Gruppe:
 Philipp-Marvin Quach
 Camilo Andres Daza Barrios
-
-Zur Ausgabe nach stdout:
-Wo genau kommt da das "Hello World! 1*3*5=15" her? Wir haben es jedenfalls nicht.
 */
 
 #include <stdio.h>
@@ -78,7 +75,7 @@ void mem_man_delete_ptr(MMspacetable *st, char *file, unsigned long line,
     if(1==2)
     {
         //keine Ahnung was man mit den Parameten machen soll
-        //l‰sst sich jedenfalls nicht kompilieren ohne Verwendung
+        //l√§sst sich jedenfalls nicht kompilieren ohne Verwendung
         printf("%s%lu", file, line);
     }
 
