@@ -65,7 +65,7 @@ void intset_add(IntSet *intset, unsigned long elem)
 bool intset_is_member(const IntSet *intset, unsigned long elem)
 {
     unsigned long leftboundary = 0;
-    unsigned long rightboundary = intset->_nofelements-1;
+    unsigned long rightboundary = intset->_insertindex-1;
 
     if(elem > intset->_maxvalue) return false;
 
