@@ -15,8 +15,8 @@ Camilo Andres Daza Barrios
 struct IntSet {
     unsigned long *_elements;
     unsigned long _maxvalue;
-    unsigned long _nofelements;
-    unsigned long _insertindex;
+    unsigned long _nofelements; // more like capacity
+    unsigned long _insertindex; // insertindex / the actual number of elements
 };
 
 IntSet *intset_new(unsigned long maxvalue, unsigned long nofelements)
@@ -48,10 +48,10 @@ void intset_delete(IntSet *intset)
 
 void intset_add(IntSet *intset, unsigned long elem)
 {
-    int i;
+    unsigned long i;
 
-    assert(elem < intset->_maxvalue);
-    assert(intset->_insertindex < intset->_nofelements); // if !full
+    assert(elem <= intset->_maxvalue);
+    assert(intset->_insertindex < intset->_nofelements);
 
     for(i = 0; i < intset->_insertindex ; i++)
     {
@@ -73,7 +73,8 @@ bool intset_is_member(const IntSet *intset, unsigned long elem)
     {
         if(intset->_elements[(leftboundary + rightboundary) / 2] >= elem)
         {
-            if(intset->_elements[(leftboundary + rightboundary) / 2] == elem) return true;
+            if(intset->_elements[(leftboundary + rightboundary) / 2] == elem)
+                return true;
 
             rightboundary = (leftboundary + rightboundary) / 2;
         }
@@ -95,5 +96,10 @@ unsigned long intset_number_next_larger(const IntSet *intset,
 
 void intset_pretty(const IntSet *intset)
 {
+    unsigned long i;
 
+    for(i = 0; i < intset->_insertindex; i++)
+    {
+        printf("element at position %lu: %lu\n", i, intset->_elements[i]);
+    }
 }
