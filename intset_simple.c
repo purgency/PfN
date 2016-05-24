@@ -2,6 +2,15 @@
 Gruppe:
 Philipp-Marvin Quach
 Camilo Andres Daza Barrios
+
+Bemerkung:
+Beim Testen stoppt das Program bei uns in der Methode checkall der Datei
+intset_main.c und zwar in Zeile 237/238 bei
+"printf("sizeof(Intset)=%zu (%.2f bits/number)\n",
+         size,(double) size/arr->nofelements * CHAR_BIT);"
+hier sehen wir allerdings nicht inwiefern der Fehler mit unserem Code
+zusammenhängt. Eine Warnung gibt an, dass %.2f ein double erwartet,
+obwohl dort bereits auf double gecastet wird.
 */
 
 #include <stdio.h>
@@ -24,8 +33,11 @@ IntSet *intset_new(unsigned long maxvalue, unsigned long nofelements)
     IntSet *intset = (IntSet*) malloc(sizeof(IntSet));
 
     assert(nofelements <= maxvalue);
+    assert(intset != NULL);
 
     intset->_elements = malloc(nofelements * sizeof(unsigned long));
+    assert(intset->_elements != NULL);
+
     intset->_maxvalue = maxvalue;
     intset->_insertindex = 0;
     intset->_nofelements = nofelements;
@@ -48,44 +60,52 @@ void intset_delete(IntSet *intset)
 
 void intset_add(IntSet *intset, unsigned long elem)
 {
-    unsigned long i;
-
     assert(elem <= intset->_maxvalue);
-    assert(intset->_insertindex < intset->_nofelements);
-
-    for(i = 0; i < intset->_insertindex ; i++)
-    {
-        assert(elem > intset->_elements[i]);
-    }
+    assert(intset->_insertindex < intset->_nofelements); // if !full
 
     intset->_elements[intset->_insertindex] = elem;
     intset->_insertindex++;
 }
 
-bool intset_is_member(const IntSet *intset, unsigned long elem)
+static bool binarysearch_is_member(const unsigned long *leftptr,
+                                   const unsigned long *rightptr,
+                                   unsigned long elem)
 {
-    unsigned long leftboundary = 0;
-    unsigned long rightboundary = intset->_insertindex-1;
+    const unsigned long *midptr;
 
-    if(elem > intset->_maxvalue) return false;
-
-    while(leftboundary != rightboundary)
+    while(leftptr <= rightptr)
     {
-        if(intset->_elements[(leftboundary + rightboundary) / 2] >= elem)
-        {
-            if(intset->_elements[(leftboundary + rightboundary) / 2] == elem)
-                return true;
+        midptr = leftptr + (((unsigned long) (rightptr-leftptr)) >> 1);
 
-            rightboundary = (leftboundary + rightboundary) / 2;
+        if(elem < *midptr)
+        {
+            rightptr = midptr-1;
         }
         else
         {
-            leftboundary = (leftboundary + rightboundary) / 2;
+            if(elem > *midptr)
+            {
+                leftptr = midptr + 1;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 
     return false;
+}
 
+bool intset_is_member(const IntSet *intset, unsigned long elem)
+{
+    if(elem <= intset->_maxvalue && intset->_insertindex > 0)
+    {
+        return binarysearch_is_member(intset->_elements,
+                                      intset->_elements+intset->_insertindex-1,
+                                      elem);
+    }
+    return false;
 }
 
 unsigned long intset_number_next_larger(const IntSet *intset,
