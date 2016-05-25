@@ -138,16 +138,17 @@ bool intset_is_member(const IntSet *intset, unsigned long elem)
     return false;
 }
 
-static unsigned long binarysearch_next_larger(const uint16_t *leftptr,
+static uint16_t binarysearch_next_larger(const uint16_t *leftptr,
                                    const uint16_t *rightptr,
-                                   unsigned long value)
+                                   uint16_t value, unsigned long nofelements)
 {
     const uint16_t *midptr;
     const uint16_t *rightptrinit = rightptr;
+    const uint16_t *leftptrinit = leftptr;
 
     while(leftptr <= rightptr)
     {
-        midptr = leftptr + (((unsigned long) (rightptr-leftptr)) >> 1);
+        midptr = leftptr + (((uint16_t) (rightptr-leftptr)) >> 1);
 
         if(value < *midptr)
         {
@@ -168,7 +169,15 @@ static unsigned long binarysearch_next_larger(const uint16_t *leftptr,
             }
         }
     }
-    return 0;
+
+    if(leftptr == leftptrinit && value < *leftptr)
+    {
+        return *leftptr;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 unsigned long intset_number_next_larger(const IntSet *intset,
@@ -190,7 +199,7 @@ unsigned long intset_number_next_larger(const IntSet *intset,
 
         result = binarysearch_next_larger(intset->_elements + intset->_sectionstart[q],
                                       intset->_elements + intset->_sectionstart[q+1]-1,
-                                      value/_d);
+                                      value/_d, intset->_nofelements);
 
         if(result > 0)
         {
@@ -199,8 +208,6 @@ unsigned long intset_number_next_larger(const IntSet *intset,
 
         q++;
     }
-
-
 }
 
 void intset_pretty(const IntSet *intset)
