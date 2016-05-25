@@ -140,7 +140,7 @@ bool intset_is_member(const IntSet *intset, unsigned long elem)
 
 static uint16_t binarysearch_next_larger(const uint16_t *leftptr,
                                    const uint16_t *rightptr,
-                                   uint16_t value, unsigned long nofelements)
+                                   uint16_t value)
 {
     const uint16_t *midptr;
     const uint16_t *rightptrinit = rightptr;
@@ -199,7 +199,7 @@ unsigned long intset_number_next_larger(const IntSet *intset,
 
         result = binarysearch_next_larger(intset->_elements + intset->_sectionstart[q],
                                       intset->_elements + intset->_sectionstart[q+1]-1,
-                                      value/_d, intset->_nofelements);
+                                      value/_d);
 
         if(result > 0)
         {
