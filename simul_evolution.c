@@ -90,11 +90,11 @@ int main(int argc, char **argv){
     }
     else if(na <= 0)
     {
-        printf("fixed:A\tsteps:%d", timer);
+        printf("fixed:B\tsteps:%d", timer);
     }
     else // nb <= 0
     {
-        printf("fixed:B\tsteps:%d", timer);
+        printf("fixed:A\tsteps:%d", timer);
     }
 
     if(argc == 7){
