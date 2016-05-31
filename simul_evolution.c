@@ -1,9 +1,13 @@
+/*
+Gruppe:
+Philipp-Marvin Quach
+Camilo Andres Daza Barrios
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <time.h>
-
-
 
 int main(int argc, char **argv){
 
@@ -13,9 +17,7 @@ int main(int argc, char **argv){
         exit(EXIT_FAILURE);
     }
 
-
-
-	int na;
+    int na;
 	double pa;
 	int nb;
 	double pb;
@@ -34,8 +36,7 @@ int main(int argc, char **argv){
 
 	timer = 0;
 
-
-	int naVar = na;
+    int naVar = na;
 	int nbVar = nb;
 	int i;
 
@@ -73,7 +74,6 @@ int main(int argc, char **argv){
 					nbVar--;
 				}
 			}
-
 		}
 
 		na = naVar;
