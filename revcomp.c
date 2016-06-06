@@ -35,13 +35,13 @@ char compl(char x)
 
 int main(int argc, char **argv){
 
-	//printf("%lu",file_size("ecoli.seq"));
 	unsigned long lon = file_size(argv[1]);
 
 	char *buff = malloc(lon*sizeof(char));
 
+	assert(buff != NULL);
 
-	FILE *fp = fopen(argv[1], "r+");
+    FILE *fp = fopen(argv[1], "r+");
 
 	FILE *fo = fopen(strcat(argv[1],".rc"), "w+");
 
@@ -49,44 +49,31 @@ int main(int argc, char **argv){
 
 	int  i;
 
-	int rowlength = strcspn(buff,"\n");
-
 	int j = 0;
+	int h;
 
-
-    //printf("%lu", lon);
-
-    printf("%d", rowlength);
-
-	for(i = lon-1; i >= 0; i--)
+    for(i = lon-1, h = 0; i >= 0; i--, h++)
     {
-        if(j != rowlength && buff[i] != '\n')
+        if(buff[h] == '\n')
         {
+            fputc('\n',fo);
+            i++;
+        }
+        else
+        {
+            if(buff[i] == '\n')
+            {
+                i--;
+            }
 
             char comp = compl(buff[i]);
             fputc(comp,fo);
-            j++;
-        }
-        else if(buff[i] != '\n'){
-            fputs("\n",fo);
-            j = 0;
-//            int k = i;
-//            int l = 0;
-//            while(buff[k] != '\n')
-//            {
-//                k++;
-//                l++;
-//            }
-//            rowlength = l;
-            i++;
         }
     }
 
     fclose(fo);
     fclose(fp);
+    free(buff);
 
 	return 0;
 }
-
-
-
