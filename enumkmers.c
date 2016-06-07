@@ -46,9 +46,7 @@ int main(int argc,char **argv)
         printNumAsStr(i);
     }
 
-    int res = get_int("1234");
-
-    return res;
+    return 0;
 }
 
 
