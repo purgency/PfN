@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "int_conv.h"
 
 //1. get number m of letters in argv[1]
 //2. get number nposbl of possible mixtures (formel aus stochastik)
@@ -35,8 +34,14 @@ void printNumAsStr(int x)
 
 int main(int argc,char **argv)
 {
+    if(argc != 3)
+    {
+        fprintf(stderr, "Executionformat: enumkmers.x <letters> <num>");
+        exit(EXIT_FAILURE);
+    }
+
     str = argv[1];
-    n = get_int(argv[2]);
+    sscanf(argv[2],"%d", &n);
     m = strlen(argv[1]);
     int posbl = (int) (pow(m,n) +0.5); //+0.5 for correct rounding
     int i;
