@@ -5,8 +5,8 @@
 #include "int_conv.h"
 
 //1. get number m of letters in argv[1]
-//2. get number x of possible mixtures (formel aus stochastik)
-//3. for i = 0 to i = x do: write i transformed* into line i
+//2. get number nposbl of possible mixtures (formel aus stochastik)
+//3. for i = 0 to i = nposbl do: write i transformed* into line i
 //
 //* A = 0, B = 1... = n-1. BA = (B*n)+0, BB = (B*n)+1... BAA =
 
