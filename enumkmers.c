@@ -38,7 +38,7 @@ int main(int argc,char **argv)
     str = argv[1];
     n = get_int(argv[2]);
     m = strlen(argv[1]);
-    int posbl = pow(m,n);
+    int posbl = (int) (pow(m,n) +0.5); //+0.5 for correct rounding
     int i;
 
     for(i = 0; i < posbl; i++)
