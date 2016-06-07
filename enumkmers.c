@@ -21,9 +21,9 @@ void printNumAsStr(int x)
     for(i = n-1; i >= 0; i--)
     {
         int y = 0;
-        while(x >= pow(m,i))
+        while(x >= (int) (pow(m,i)+0.5))
         {
-            x -= pow(m,i);
+            x -= (int) (pow(m,i)+0.5);
             y++;
         }
 
