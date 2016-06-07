@@ -36,6 +36,14 @@ char compl(char x)
 
 int main(int argc, char **argv){
 
+	if(argc != 2)
+    {
+        fprintf(stderr, "Executionformat: revcomp.x <filename>");
+        exit(EXIT_FAILURE);
+    }
+
+	
+	
 	unsigned long lon = file_size(argv[1]);
 
 	char *buff = malloc(lon*sizeof(char));
